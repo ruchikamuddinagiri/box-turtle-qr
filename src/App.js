@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import QRCode from "qrcode";
+import "./App.css";
 
 function App() {
+  const [inputText, setInputText] = useState("");
+
+  const handleChange = (e) => {
+    // 👇 Store the input value to local state
+    setInputText(e.target.value);
+  };
+
+  const generateQR = () => {
+    console.log(inputText);
+    QRCode.toCanvas(document.getElementById("canvas"), inputText, function (error) {
+      if (error) console.error(error);
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="text" onChange={handleChange} value={inputText} />
+      <p>Your input: {inputText}</p>
+      <button onClick={generateQR}>Generate QR!</button>
+      <canvas id="canvas" align="center" />
     </div>
   );
 }
