@@ -14,7 +14,7 @@ function App() {
 
   const generateQR = () => {
     let url = "https://clemsonboxturtles.com";
-    let qrText = url + "/" + inputText;
+    let qrText = url + "/" + inputText.toLowerCase();
     console.log(qrText)
     QRCode.toCanvas(
       document.getElementById("canvas"),
